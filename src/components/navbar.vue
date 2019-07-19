@@ -1,12 +1,15 @@
 <template>
     <div id="navbar">
-        <v-toolbar dark>
+        <v-toolbar color="amber darken-2 white--text" light>
         <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-        <v-toolbar-title>Kocheng-Gram</v-toolbar-title>
+        <v-toolbar-title id="title">
+            <v-icon x-large color="white">sentiment_satisfied</v-icon>
+            Kocheng-Gram
+            </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn flat>Explore</v-btn>
-            <v-btn flat>Upload</v-btn>
+            <v-btn color="white" class="menu" flat>Explore</v-btn>
+            <v-btn color="white" class="menu" flat>Upload</v-btn>
             <!-- <v-btn flat>Search</v-btn> -->
         </v-toolbar-items>
         </v-toolbar>
@@ -20,5 +23,14 @@ export default {
 </script>
 
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Roboto&display=swap');
+    #title {
+        font-family: 'Indie Flower', cursive;
+        font-size: 26px;
+        
+    }
 
+    .menu {
+        font-family: 'Roboto', sans-serif;
+    }
 </style>

@@ -2,24 +2,24 @@
     <div id="viewImage">
         <v-flex ma-2>
             <v-card>
-            <v-container>
-                <v-img 
-                    :src="viewCat.image"
-                    aspect-ratio="1"
-                ></v-img>
-        
-                <v-card-title primary-title>
-                    <div>
-                    {{ viewCat.caption }}
-                    </div>
-                </v-card-title>
-        
-                <v-card-actions>
-                    <v-btn color="orange">Share</v-btn>
-                    <v-btn @click="$emit('closeView')" color="red">Close</v-btn>
-                </v-card-actions>
-
-            </v-container>
+                    <v-layout align-end column/>
+                        <v-btn @click="$emit('closeView')" flat icon color="grey" style="text-align: right;">
+                            <v-icon>close</v-icon>
+                        </v-btn>
+                    </v-layout>
+                    <v-img 
+                        :src="viewCat.image"
+                        aspect-ratio="1"
+                    ></v-img>
+                    <v-card-title primary-title>
+                        <div>
+                        {{ viewCat.caption }}
+                        </div>
+                    </v-card-title>
+            
+                    <v-card-actions>
+                        <v-btn color="orange white--text">Share</v-btn>
+                    </v-card-actions>
             </v-card>
         </v-flex>
     </div>
