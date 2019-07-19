@@ -17,25 +17,18 @@
 import axios from 'axios'
 import CardImage from './card-image.vue'
 export default {
+    props: ['cats'],
     data(){
         return {
-            cats: []
+            
         }
     },
     methods : {
         addApp(payload) {
             console.log(payload.image, 'di explore')
             this.$emit('catApp', payload)
-        }
-    },
-    created() {
-        axios({
-            method: 'get',
-            url: 'http://localhost:3000/posts'
-        })
-        .then(({ data }) => {
-            this.cats = data
-        })
+        },
+        
     },
     components: {
         CardImage

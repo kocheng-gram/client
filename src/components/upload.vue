@@ -1,50 +1,53 @@
 <template>
-    <v-layout row>
-        <v-dialog v-model="dialog" persistent max-width="400px">
-            <template v-slot:activator="{ on }">
-                <v-btn small dark v-on="on"> Upload </v-btn>
-            </template>
-            <v-card>
-                <v-card-title>
-                    <span class="headline">Upload File</span>
-                </v-card-title>
-                <v-card-text>
-                    <v-container grid-list-md>
-                        <v-layout wrap>
-                            <v-flex xs12 sm12 md12>
-                                <v-text-field v-model="caption" label="Caption" required></v-text-field>
-                            </v-flex>
-                            <v-flex xs12 sm12 md12 class="text-xs-center text-sm-center text-md-center text-lg-center">
-                                <img :src="imageUrl" height="200" width="200" style="object-fit: cover;" v-if="imageUrl">
-                                <v-text-field label="Select Image" @click="pickFile" v-model="imageName" prepend-icon="attach_file"></v-text-field>
-                                <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                    <v-layout column justify-center>
-                        <v-flex xs12>
-                            <v-btn block @click="validate()" small color="black" dark v-if="score < 0.9"> Validate </v-btn>
-                            <v-btn block @click="upload()" small color="black" dark v-if="score > 0.9"> Upload </v-btn>
+    <v-dialog v-model="dialog" persistent max-width="400px">
+        <v-card>
+            <v-card-title>
+                <span class="headline">Upload File</span>
+            </v-card-title>
+            <v-card-text>
+                <v-container grid-list-md>
+                    <v-layout wrap>
+                        <v-flex xs12 sm12 md12>
+                            <v-text-field v-model="caption" label="Caption" required></v-text-field>
                         </v-flex>
-                        <v-flex xs12 class="mt-1">
-                            <v-btn block @click="dialog = false" small color="red" dark> Cancel </v-btn>
+                        <v-flex xs12 sm12 md12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+                            <img :src="imageUrl" height="200" width="200" style="object-fit: cover;" v-if="imageUrl">
+                            <v-text-field label="Select Image" @click="pickFile" v-model="imageName" prepend-icon="attach_file"></v-text-field>
+                            <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
                         </v-flex>
                     </v-layout>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-    </v-layout>
+                </v-container>
+            </v-card-text>
+            <v-card-actions>
+                <v-layout column justify-center>
+                    <v-flex xs12>
+                        <v-layout v-if="score > 0.9" column align-center style="margin-bottom: 20px;">
+                            <p style="color: green;">Score : {{Math.floor(score * 10)}} </p>
+                            <p>It's A Cat ! Go ahead and upload your image :)</p>
+                        </v-layout>
+                        <v-layout v-if="score < 0.9 && score > 0" column align-center style="margin-bottom: 20px;">
+                            <p style="color: red">Score : {{Math.floor(score * 10)}} </p>
+                            <p>Sorry it's not cat enough :(</p>
+                        </v-layout>
+                        <v-btn block @click="upload()" small color="black" dark v-if="score > 0.9"> Upload </v-btn>
+                        <v-btn block @click="validate()" small color="black" dark v-if="score < 0.9"> Validate </v-btn>
+                    </v-flex>
+                    <v-flex xs12 class="mt-1">
+                        <v-btn block @click="$emit('closeUpload')" small color="red" dark> Cancel </v-btn>
+                    </v-flex>
+                </v-layout>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
+    props: ['dialog'],
     data() {
         return {
-            dialog: false,
             imageName: '',
             imageUrl: '',
             imageFile: '',
@@ -65,7 +68,6 @@ export default {
                 data : formData    
             })
             .then( ({data}) => {
-                this.dialog = true
                 console.log(data)
                 this.score = data.score
             })
@@ -88,8 +90,8 @@ export default {
                 data : formData    
             })
             .then( ({data}) => {
-                this.dialog = false
-                console.log(data)
+                this.$emit('closeUpload')
+                this.$emit('fetch')
             })
             .catch( err =>{
                 if(err.response.data.message === "Cannot read property 'cloudStoragePublicUrl' of undefined"){
@@ -105,6 +107,7 @@ export default {
         },
 
         onFilePicked(e) {
+        this.score = 0
         this.avatar = e.target.files[0]
         const files = e.target.files
             if(files[0] !== undefined) {
@@ -129,4 +132,7 @@ export default {
 </script>
 
 <style scoped>
+    p {
+        margin: 0;
+    }
 </style>

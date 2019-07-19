@@ -9,7 +9,7 @@
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
             <v-btn color="white" class="menu" flat>Explore</v-btn>
-            <v-btn color="white" class="menu" flat>Upload</v-btn>
+            <v-btn color="white" class="menu" flat @click="$emit('openUpload')">Upload</v-btn>
             <!-- <v-btn flat>Search</v-btn> -->
         </v-toolbar-items>
         </v-toolbar>
