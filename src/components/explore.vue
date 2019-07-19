@@ -5,7 +5,7 @@
             <v-card>
             <v-container grid-list-sm fluid>
                 <v-layout row wrap>
-                    <CardImage @catExplore="addApp" v-for="cat in cats" :key="cat.id" :cat="cat" ></CardImage>
+                    <CardImage aspect-ratio="2" @catExplore="addApp" v-for="cat in cats" :key="cat.id" :cat="cat" ></CardImage>
                 </v-layout> 
             </v-container>
             </v-card>
