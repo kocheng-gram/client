@@ -9,7 +9,6 @@
                 <ViewImage @closeView="viewCat=''" :viewCat="viewCat" ></ViewImage>
             </v-flex>
         </v-layout>
-
     </div>
 </template>
 
