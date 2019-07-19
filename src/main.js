@@ -1,5 +1,6 @@
 import App from './App.vue'
 import Vue from 'vue'
+import upload from './components/upload.vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import axios from 'axios'
