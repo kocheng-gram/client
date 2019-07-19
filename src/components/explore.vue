@@ -13,7 +13,6 @@
         </v-layout>
     </div>
 </template>
-
 <script>
 import axios from 'axios'
 import CardImage from './card-image.vue'
@@ -32,7 +31,7 @@ export default {
     created() {
         axios({
             method: 'get',
-            url: 'http://localhost:3000/kocheng'
+            url: 'http://localhost:3000/posts'
         })
         .then(({ data }) => {
             this.cats = data
