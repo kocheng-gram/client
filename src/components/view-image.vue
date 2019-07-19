@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .resp-sharing-button__link,
     .resp-sharing-button__icon {
     display: inline-block

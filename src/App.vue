@@ -44,7 +44,7 @@ export default {
         fetchCats() {
             axios({ 
                 method: 'GET',
-                url: 'http://localhost:3000/post',
+                url: 'http://35.198.255.105/post',
             })
             .then(({data}) => {
                 this.cats = data
@@ -55,7 +55,7 @@ export default {
     created() {
         axios({
             method: 'get',
-            url: 'http://localhost:3000/post'
+            url: 'http://35.198.255.105/post'
         })
         .then(({ data }) => {
             this.cats = data

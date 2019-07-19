@@ -33,7 +33,7 @@
                         <v-btn block @click="validate()" small color="black" dark v-if="score < 0.9"> Validate </v-btn>
                     </v-flex>
                     <v-flex xs12 class="mt-1">
-                        <v-btn block @click="$emit('closeUpload')" small color="red" dark> Cancel </v-btn>
+                        <v-btn block @click="closeUpload" small color="red" dark> Cancel </v-btn>
                     </v-flex>
                 </v-layout>
             </v-card-actions>
@@ -64,7 +64,7 @@ export default {
             formData.append('image', this.avatar)
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/post/validate',
+                url: 'http://35.198.255.105/post/validate',
                 data : formData    
             })
             .then( ({data}) => {
@@ -86,10 +86,16 @@ export default {
             formData.append('image', this.avatar)
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/post',
+                url: 'http://35.198.255.105/post',
                 data : formData    
             })
             .then( ({data}) => {
+                this.score = 0
+                this.avatar = ''
+                this.caption = ''
+                this.imageUrl = ''
+                this.imageName = ''
+                this.imageFile = ''
                 this.$emit('closeUpload')
                 this.$emit('fetch')
             })
@@ -126,6 +132,15 @@ export default {
                     this.imageFile = ''
                     this.imageUrl = ''
                 }
+        },
+        closeUpload() {
+            this.score = 0
+            this.avatar = ''
+            this.caption = ''
+            this.imageUrl = ''
+            this.imageName = ''
+            this.imageFile = ''
+            this.$emit('closeUpload')
         }
     }
 };
