@@ -1,14 +1,15 @@
 <template>
     <div>
-        <Navbar></Navbar>
+        <Navbar @openUpload="openDialog"  ></Navbar>
         <v-layout>
             <v-flex>
-                <Explore @catApp="viewDetail"></Explore>
+                <Explore @catApp="viewDetail" :cats="cats"></Explore>
             </v-flex>
             <v-flex v-if="viewCat" xs4>
                 <ViewImage @closeView="viewCat=''" :viewCat="viewCat" ></ViewImage>
             </v-flex>
         </v-layout>
+        <Upload :dialog="dialog" @closeUpload="dialog = false" @fetch="fetchCats" ></Upload>
     </div>
 </template>
 
@@ -16,22 +17,49 @@
 import Navbar from './components/navbar'
 import Explore from './components/explore'
 import ViewImage from './components/view-image'
+import Upload from './components/upload.vue'
+import axios from 'axios'
 export default {
     data() {
         return {
             message: 'Kocheng-Gram',
-            viewCat: ''
+            viewCat: '',
+            dialog: false,
+            cats: []
         }
     },
     components: {
         Navbar,
         Explore,
-        ViewImage
+        ViewImage,
+        Upload
     },
     methods: {
         viewDetail(payload){
             this.viewCat = payload
+        },
+        openDialog() {
+            this.dialog = true
+        },
+        fetchCats() {
+            axios({ 
+                method: 'GET',
+                url: 'http://localhost:3000/post',
+            })
+            .then(({data}) => {
+                this.cats = data
+            })
+            .catch(err => {console.log(err)})
         }
+    },
+    created() {
+        axios({
+            method: 'get',
+            url: 'http://localhost:3000/post'
+        })
+        .then(({ data }) => {
+            this.cats = data
+        })
     }
 }
 </script>
