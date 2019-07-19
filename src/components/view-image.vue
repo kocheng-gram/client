@@ -2,7 +2,7 @@
     <div id="viewImage">
         <v-flex ma-2>
             <v-card>
-                    <v-layout align-end column>
+                    <v-layout align-end columnt>
                         <v-btn @click="$emit('closeView')" flat icon color="grey" style="text-align: right;">
                             <v-icon>close</v-icon>
                         </v-btn>
